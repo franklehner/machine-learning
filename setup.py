@@ -25,7 +25,7 @@ setup(
         "keras",
         "h5py",
         "tables",
-        "pillows",
+        "Pillow",
         "opencv-python",
         "gensim",
         "click",
