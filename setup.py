@@ -29,5 +29,6 @@ setup(
         "opencv-python",
         "gensim",
         "click",
+        "attr",
     ]
 )
