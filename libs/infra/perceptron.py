@@ -8,5 +8,9 @@ class UrlRepository(AbstractUrlReaderPandas):
     """
 
     @classmethod
-    def read(self, url):
+    def read(cls, url):
         return _pd.read_csv(url, sep=",")
+
+    @classmethod
+    def plot(cls, x_range, y_range, legend, label):
+        pass
