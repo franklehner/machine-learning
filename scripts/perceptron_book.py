@@ -64,7 +64,7 @@ _plt.ylabel("Länge des Blütenblatts [cm]")
 _plt.legend(loc="upper left")
 _plt.show()
 
-ppn = Perceptron(eta=0.1, n_iter=10)
+ppn = Perceptron(eta=0.1, n_iter=6)
 ppn.fit(X, y)
 _plt.plot(range(1, len(ppn.errors) + 1), ppn.errors, marker="o")
 _plt.xlabel("Epochen")
