@@ -1,0 +1,16 @@
+numpy
+pandas
+scipy
+matplotlib
+Cython
+scikit-learn
+tensorflow
+theano
+keras
+h5py
+tables
+Pillow
+opencv-python
+gensim
+click
+attr

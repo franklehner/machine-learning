@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: machine-learning
+Version: 0.0.1
+Author: Frank Lehner
+Author-email: frank-lehner71@t-online.de
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: Cython
+Requires-Dist: scikit-learn
+Requires-Dist: tensorflow
+Requires-Dist: theano
+Requires-Dist: keras
+Requires-Dist: h5py
+Requires-Dist: tables
+Requires-Dist: Pillow
+Requires-Dist: opencv-python
+Requires-Dist: gensim
+Requires-Dist: click
+Requires-Dist: attr
