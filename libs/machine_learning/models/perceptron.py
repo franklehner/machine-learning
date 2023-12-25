@@ -10,38 +10,38 @@ from numpy.random import seed
 
 @dataclass
 class Perceptron:
-    """Perceptron classifier
+    """Perceptron-classifier
     """
+
     eta: float = 0.01
-    n_iter: int = 10
-    w_: np.ndarray = field(init=False)
+    n_iter: int = 50
+    random_state: int = 1
+    weights_: np.ndarray = field(init=False)
     errors_: List[int] = field(init=False, default_factory=list)
 
-    def fit(self, x_train: np.ndarray, y_train: np.ndarray) -> "Perceptron":
-        """Fit training data
-        """
-        self.w_ = np.zeros(1 + x_train.shape[1])
+    def fit(self, train_data: np.ndarray, train_target: np.ndarray) -> "Perceptron":
+        "Adjust training data"
+        rgen = np.random.RandomState(seed=self.random_state)  # pylint: disable=no-member
+        self.weights_ = rgen.normal(loc=0.0, scale=0.01, size=1 + train_data.shape[1])
 
         for _ in range(self.n_iter):
             errors = 0
-            for x_train_i, target in zip(x_train, y_train):
-                update = self.eta * (target - self.predict(x_train_i))
-                self.w_[1:] += update * x_train_i
-                self.w_[0] += update
+            for xi, target in zip(train_data, train_target):
+                update = self.eta * (target - self.predict(data=xi))
+                self.weights_[1:] += update * xi
+                self.weights_[0] += update
                 errors += int(update != 0.0)
             self.errors_.append(errors)
 
         return self
 
-    def predict(self, x_train: np.ndarray):
-        """Predict class
-        """
-        return np.where(self.net_input(x_train=x_train) >= 0.0, 1, -1)
+    def net_input(self, data: np.ndarray) -> np.ndarray:
+        "Netto input"
+        return np.dot(data, self.weights_[1:]) + self.weights_[0]
 
-    def net_input(self, x_train: np.ndarray):
-        """Calculate netto input
-        """
-        return np.dot(x_train, self.w_[1:]) + self.w_[0]
+    def predict(self, data: np.ndarray) -> np.ndarray:
+        "Return predicted class label"
+        return np.where(self.net_input(data=data) >= 0.0, 1, -1)
 
 
 @dataclass
