@@ -33,7 +33,7 @@ def plot_decision_regions(
     )
     z_value = z_value.reshape(xx1.shape)
 
-    plt.contourf(xx1, xx2, z_value, alpha=0.4, colormap=colors)
+    plt.contourf(xx1, xx2, z_value, alpha=0.4)
     plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
 
