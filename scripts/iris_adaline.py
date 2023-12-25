@@ -27,8 +27,11 @@ def cli(eta: float, iterations: int):
     targets = iris.targets[0:100]
     targets = np.where(targets == "Iris-setosa", -1, 1)
     data = iris.data[0:100, [0, 2]]
+    x_std = np.copy(data)
+    x_std[:, 0] = (x_std[:, 0] - x_std[:, 0].mean()) / x_std[:, 0].std()
+    x_std[:, 1] = (x_std[:, 1] - x_std[:, 1].mean()) / x_std[:, 1].std()
     adaline = AdalineGD(eta=eta, n_iter=iterations)
-    adaline.fit(data=data, targets=targets)
+    adaline.fit(data=x_std, targets=targets)
     plt.plot(
         range(1, len(adaline.costs) + 1),
         np.log10(adaline.costs),
@@ -37,6 +40,7 @@ def cli(eta: float, iterations: int):
     plt.xlabel("epochs")
     plt.ylabel("log sum of squared errors")
     plt.title("Adaline")
+    plt.grid(True)
     plt.show()
 
 
