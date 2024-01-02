@@ -38,7 +38,8 @@ def cli(eta: float, n_iter: int, random_state: int):
     data = iris.data[0:100, [0, 2]]
     ada = AdalineSGD(eta=eta, n_iter=n_iter, random_state=random_state)
     ada.fit(data=data, targets=targets)
-    plot_decision_regions(data=data, target=targets, classifier=ada)
+    names = [str(name) for name in iris.target_names]
+    plot_decision_regions(data=data, target=targets, classifier=ada, names=names)
     plt.xlabel("Länge des Kelchblatts [cm]")
     plt.ylabel("Länge des Blütenblatts [cm]")
     plt.legend(loc="upper left")
