@@ -45,7 +45,7 @@ def plot_decision_regions(
     data: np.ndarray,
     target: np.ndarray,
     classifier: Any,
-    names: List[str],
+    names: Optional[List[str]] = None,
     test_idx: Optional[range] = None,
 ) -> None:
     """plot region"""
@@ -60,14 +60,24 @@ def plot_decision_regions(
     plt.ylim(xx2.min(), xx2.max())
 
     for idx, c_map in enumerate(np.unique(target)):
-        plt.scatter(
-            x=data[target == c_map, 0],
-            y=data[target == c_map, 1],
-            alpha=0.8,
-            c=COLORS[idx],
-            marker=MARKERS[idx],
-            label=names[c_map],
-        )
+        if names is not None:
+            plt.scatter(
+                x=data[target == c_map, 0],
+                y=data[target == c_map, 1],
+                alpha=0.8,
+                c=COLORS[idx],
+                marker=MARKERS[idx],
+                label=names[c_map],
+            )
+        else:
+            plt.scatter(
+                x=data[target == c_map, 0],
+                y=data[target == c_map, 1],
+                alpha=0.8,
+                c=COLORS[idx],
+                marker=MARKERS[idx],
+                label=c_map,
+            )
 
     if test_idx is not None:
         mark_test_data(test_data=data, test_idx=test_idx)
