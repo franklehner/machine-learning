@@ -46,6 +46,7 @@ def cli(n_components: Optional[int], multiclass: MultiClass, solver: Solver):
         multiclass=multiclass,
         solver=solver,
         n_components=n_components,
+        reduction="pca",
     )
     wine_classifier.train()
 
