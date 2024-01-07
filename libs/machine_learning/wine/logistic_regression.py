@@ -58,6 +58,11 @@ class WineClassifier:
             return PCA(n_components=self.n_components)
         if self.reduction == "lda":
             return LinearDiscriminantAnalysis(n_components=self.n_components)
+        if self.kernel == "linear":
+            return KernelPCA(
+                n_components=self.n_components,
+                kernel=self.kernel,
+            )
 
         return KernelPCA(
             n_components=self.n_components,
@@ -92,7 +97,10 @@ class WineClassifier:
         y_pred = lr.predict(x_test_reduced)
         score = accuracy_score(y_true=y_test, y_pred=y_pred)
         print(f"Accuracy: {score}")
-        print(f"{self.reduction.upper()} variances:\n{reducer.explained_variance_ratio_}")
+        if not self.reduction == "kernel-pca":
+            print(
+                f"{self.reduction.upper()} variances:\n{reducer.explained_variance_ratio_}",
+            )
 
     def plot_decisions(self, data: Tensor, target: Tensor, classifier: LogisticRegression):
         "Plot decisions"
