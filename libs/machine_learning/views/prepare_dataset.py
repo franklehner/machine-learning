@@ -1,14 +1,35 @@
 """Prepare dataset
 """
-from typing import Optional, Tuple
+from dataclasses import dataclass
+from typing import Literal, Optional, Tuple, Union
 
 import numpy as np
 
+from libs.machine_learning.views.breast_cancer import BreastCancer
 from libs.machine_learning.views.iris import Iris
 from libs.machine_learning.views.wine import Wine
 
 Tensor = np.ndarray
 SplittedData = Tuple[Tensor, Tensor, Tensor, Tensor]
+Name = Literal["iris", "wine", "cancer"]
+Data = Union[BreastCancer, Iris, Wine]
+
+
+@dataclass
+class DataSet:
+    "Dataset"
+
+    name: Name
+
+    def get_dataset(self) -> Data:
+        "get the dataset"
+        if self.name == "iris":
+            return Iris()
+
+        if self.name == "wine":
+            return Wine()
+
+        return BreastCancer()
 
 
 def get_origin_iris_dataset() -> Iris:
