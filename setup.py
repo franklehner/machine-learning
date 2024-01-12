@@ -30,5 +30,6 @@ setup(
         "gensim",
         "click",
         "pyprind",
+        "nltk",
     ]
 )
