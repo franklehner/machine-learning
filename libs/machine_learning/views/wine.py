@@ -34,7 +34,13 @@ class Wine:
         self.feature_names = value_cols
         self.target_names = df["Klassenbezeichnung"].unique()
 
-    def split(self, count: Optional[int] = None) -> TrainTest:
+    def split(
+        self,
+        count: Optional[int] = None,
+        test_size: Optional[float] = 0.3,
+        random_state: Optional[int] = 1,
+        stratify: bool = False,
+    ) -> TrainTest:
         "Split data into train and test data"
         if count is not None:
             data = self.data[:count]
@@ -43,7 +49,22 @@ class Wine:
             data = self.data
             targets = self.targets
 
-        return train_test_split(data, targets, stratify=targets)
+        if stratify:
+            return train_test_split(
+                data,
+                targets,
+                stratify=targets,
+                test_size=test_size,
+                random_state=random_state,
+            )
+
+        return train_test_split(
+            data,
+            targets,
+            stratify=targets,
+            test_size=test_size,
+            random_state=random_state,
+        )
 
     def standardize(self, x_train: Tensor, x_test: Tensor) -> Tuple[Tensor, Tensor]:
         "Standardize data"
