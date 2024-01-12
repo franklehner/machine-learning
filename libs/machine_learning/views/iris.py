@@ -36,7 +36,13 @@ class Iris:
         self.feature_names = iris_data["feature_names"]
         self.target_names = iris_data["target_names"]
 
-    def split(self, count: Optional[int] = None) -> TrainTest:
+    def split(
+        self,
+        count: Optional[int] = None,
+        test_size: Optional[float] = 0.3,
+        random_state: Optional[int] = 1,
+        stratify: bool = False,
+    ) -> TrainTest:
         "Split data into train and test data"
         if count is not None:
             data = self.data[:count]
@@ -44,17 +50,22 @@ class Iris:
         else:
             data = self.data
             targets = self.targets
-        (
-            data_train,
-            data_test,
-            targets_train,
-            targets_test,
-        ) = train_test_split(
+
+        if stratify:
+            return train_test_split(
+                data,
+                targets,
+                test_size=test_size,
+                random_state=random_state,
+                stratify=targets,
+            )
+        return train_test_split(
             data,
             targets,
+            test_size=test_size,
+            random_state=random_state,
         )
 
-        return data_train, data_test, targets_train, targets_test
 
     def standardize(self, data_train: Tensor, data_test: Tensor) -> Tuple[Tensor, Tensor]:
         "standardize"
