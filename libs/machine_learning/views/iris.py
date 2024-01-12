@@ -67,7 +67,9 @@ class Iris:
         )
 
 
-    def standardize(self, data_train: Tensor, data_test: Tensor) -> Tuple[Tensor, Tensor]:
+    def standardize(
+        self, data_train: Tensor, data_test: Tensor
+    ) -> Tuple[Tensor, Tensor]:
         "standardize"
         sc = StandardScaler()
         sc.fit(data_train)
