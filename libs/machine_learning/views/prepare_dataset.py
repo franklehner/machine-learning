@@ -41,6 +41,11 @@ def get_origin_wine_dataset() -> Wine:
     return Wine()
 
 
+def get_origin_breast_cancer_dataset() -> BreastCancer:
+    "Get the origin datast of breast cancer"
+    return BreastCancer()
+
+
 def get_splitted_dataset(iris: Optional[Iris] = None, count: Optional[int] = None) -> SplittedData:
     "get splitted dataset"
     if iris is None:
