@@ -6,7 +6,7 @@ from typing import List, Literal, Optional, Tuple, Union
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 Tensor = np.ndarray
 TrainTest = Tuple[Tensor, Tensor, Tensor, Tensor]
@@ -30,7 +30,9 @@ class Iris:
         """Load"""
         iris_data = load_iris()
         self.data = iris_data["data"]
-        self.targets = iris_data["target"]
+        targets = iris_data["target"]
+        le = LabelEncoder()
+        self.targets = le.fit_transform(targets)
         self.feature_names = iris_data["feature_names"]
         self.target_names = iris_data["target_names"]
 
