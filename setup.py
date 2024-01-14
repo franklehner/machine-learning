@@ -31,5 +31,6 @@ setup(
         "click",
         "pyprind",
         "nltk",
+        "mlxtend",
     ]
 )
