@@ -1,9 +1,12 @@
 """Prepare dataset
 """
+import re
 from dataclasses import dataclass
 from typing import List, Literal, Optional, Tuple, Union
 
 import numpy as np
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
 
 from libs.machine_learning.views.breast_cancer import BreastCancer
 from libs.machine_learning.views.iris import Iris
@@ -91,3 +94,22 @@ def get_standardized_wine_data() -> SplittedData:
     )
 
     return x_train_std, x_test_std, y_train, y_test
+
+
+def tokenizer(text: str) -> List[str]:
+    "Split text into tokens"
+    text = re.sub(r"<[^>]*>", "", text)
+    emoticons = re.findall(
+        r"(?::|;|=)(?:-)?(?:\)|\(|D|P)",
+        text.lower(),
+    )
+    text = re.sub(r"[\W]+", " ", text.lower() + " ".join(emoticons).replace("-", ""))
+    tokenized = [word for word in text.split() if word not in STOP]
+
+    return tokenized
+
+
+def tokenizer_porter(text: str) -> List[str]:
+    "Split text into stemmed tokens"
+    porter = PorterStemmer()
+    return [porter.stem(word) for word in text.split()]
