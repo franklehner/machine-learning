@@ -1,18 +1,20 @@
 """Prepare dataset
 """
 from dataclasses import dataclass
-from typing import Literal, Optional, Tuple, Union
+from typing import List, Literal, Optional, Tuple, Union
 
 import numpy as np
 
 from libs.machine_learning.views.breast_cancer import BreastCancer
 from libs.machine_learning.views.iris import Iris
+from libs.machine_learning.views.movie_reviews import Reviews
 from libs.machine_learning.views.wine import Wine
 
 Tensor = np.ndarray
 SplittedData = Tuple[Tensor, Tensor, Tensor, Tensor]
-Name = Literal["iris", "wine", "cancer"]
-Data = Union[BreastCancer, Iris, Wine]
+Name = Literal["iris", "wine", "cancer", "movie"]
+Data = Union[BreastCancer, Iris, Wine, Reviews]
+STOP = stopwords.words("english")
 
 
 @dataclass
@@ -28,6 +30,9 @@ class DataSet:
 
         if self.name == "wine":
             return Wine()
+
+        if self.name == "movie":
+            return Reviews()
 
         return BreastCancer()
 
