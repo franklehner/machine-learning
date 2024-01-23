@@ -8,6 +8,7 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
+from libs.machine_learning.views.boston_houses import BostonHouses
 from libs.machine_learning.views.breast_cancer import BreastCancer
 from libs.machine_learning.views.iris import Iris
 from libs.machine_learning.views.movie_reviews import Reviews
@@ -15,8 +16,8 @@ from libs.machine_learning.views.wine import Wine
 
 Tensor = np.ndarray
 SplittedData = Tuple[Tensor, Tensor, Tensor, Tensor]
-Name = Literal["iris", "wine", "cancer", "movie"]
-Data = Union[BreastCancer, Iris, Wine, Reviews]
+Name = Literal["iris", "wine", "cancer", "movie", "boston"]
+Data = Union[BreastCancer, Iris, Wine, Reviews, BostonHouses]
 STOP = stopwords.words("english")
 
 
@@ -36,6 +37,9 @@ class DataSet:
 
         if self.name == "movie":
             return Reviews()
+
+        if self.name == "boston":
+            return BostonHouses()
 
         return BreastCancer()
 
