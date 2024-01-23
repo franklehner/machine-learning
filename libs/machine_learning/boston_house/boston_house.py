@@ -1,7 +1,7 @@
 """Classifier, predictor and explorer for Boston house prices
 """
 from dataclasses import asdict, dataclass, field
-from typing import Annotated, List, Literal, Optional, Tuple, Union
+from typing import List, Literal, Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
